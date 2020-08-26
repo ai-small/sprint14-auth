@@ -1,0 +1,30 @@
+{
+  "name": "sprint13-rest-api",
+  "version": "0.0.2",
+  "description": "training project on backend course",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "lint": "npx eslint ./"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ai-small/sprint13-rest-api.git"
+  },
+  "author": "ai-small",
+  "license": "ISC",
+  "homepage": "https://ai-small.github.io/sprint13-rest-api/",
+  "devDependencies": {
+    "eslint": "^7.5.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "nodemon": "^2.0.4"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.28",
+    "validator": "^13.1.1"
+  }
+}
