@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 
 const getUsers = (req, res) => {
@@ -18,35 +17,6 @@ const getUserById = (req, res) => {
       })
       .catch((err) => res.status(500).send({ message: `На сервере произошла ошибка: ${err.message}` }));
   } else res.status(404).send({ message: 'User not found' });
-};
-
-const createUser = (req, res) => {
-  const {
-    name,
-    about,
-    avatar,
-    email,
-    password,
-  } = req.body;
-
-  if (password.length < 6) {
-    res.status(400).send({ message: 'password is not a valid!' });
-  }
-
-  bcrypt.hash(password, 10)
-    .then((hash) => User.create({
-      name,
-      about,
-      avatar,
-      email,
-      password: hash,
-    }))
-    .then((user) => res.status(200).send({ data: user }))
-    .catch((err) => {
-      if (err.name === 'ValidationError') {
-        res.status(400).send({ message: err.message });
-      } else res.status(500).send({ message: `На сервере произошла ошибка: ${err.message}` });
-    });
 };
 
 const updateUser = (req, res) => {
@@ -88,7 +58,6 @@ const updateAvatar = (req, res) => {
 module.exports = {
   getUsers,
   getUserById,
-  createUser,
   updateUser,
   updateAvatar,
 };
