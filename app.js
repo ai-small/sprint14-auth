@@ -27,7 +27,6 @@ app.use((req, res, next) => {
 
 app.use('/signin', singInRouter);
 app.use('/signup', singUpRouter);
-
 app.use('/users', usersRouter);
 app.use('/cards', cardsRouter);
 app.use(notFound);

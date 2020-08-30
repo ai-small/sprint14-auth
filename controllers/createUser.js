@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs');
+const check = require('validator');
 const User = require('../models/user');
 
 const createUser = (req, res) => {
@@ -10,11 +11,19 @@ const createUser = (req, res) => {
     password,
   } = req.body;
 
-  if (password.length < 6) {
-    res.status(400).send({ message: 'password is not a valid!' });
+  if (check.isEmpty(password, { ignore_whitespace: true })) {
+    return res.status(400).send({ message: 'Пароль не может состоять из пробелов' });
   }
 
-  bcrypt.hash(password, 10)
+  if (!check.isLength(password, { min: 6 })) {
+    return res.status(400).send({ message: 'Минимальная длина пароля - 6 символов' });
+  }
+
+  if (!check.isEmail(email)) {
+    return res.status(400).send({ message: 'E-mail is not a valid!' });
+  }
+
+  return bcrypt.hash(password, 10)
     .then((hash) => User.create({
       name,
       about,
@@ -24,12 +33,10 @@ const createUser = (req, res) => {
     }))
     .then((user) => res.status(200).send({ data: user }))
     .catch((err) => {
-      if (err.message.includes('E11000')) {
-        res.status(400).send({ message: err.message });
+      if (err.name === 'ValidationError' || err.message.includes('E11000')) {
+        return res.status(400).send({ message: err.message });
       }
-      if (err.name === 'ValidationError') {
-        res.status(400).send({ message: err.message });
-      } else res.status(500).send({ message: `На сервере произошла ошибка: ${err.message}` });
+      return res.status(500).send({ message: `На сервере произошла ошибка: ${err.message}` });
     });
 };
 
