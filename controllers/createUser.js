@@ -31,7 +31,12 @@ const createUser = (req, res) => {
       email,
       password: hash,
     }))
-    .then((user) => res.status(200).send({ data: user }))
+    .then((user) => res.status(200).send({
+      name: user.name,
+      about: user.about,
+      avatar: user.avatar,
+      email: user.email,
+    }))
     .catch((err) => {
       if (err.name === 'ValidationError' || err.message.includes('E11000')) {
         return res.status(400).send({ message: err.message });
