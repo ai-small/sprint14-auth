@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
 const login = (req, res) => {
-  const { NODE_ENV, JWT_SECRET } = process.env;
+  const { NODE_ENV, JWT_SECRET = 'dev-secret' } = process.env;
   const { email, password } = req.body;
 
   return User.findUserByCredentials(email, password)
