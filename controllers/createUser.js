@@ -45,7 +45,7 @@ const createUser = (req, res) => {
       if (err.name === 'ValidationError') {
         return res.status(400).send({ message: err.message });
       }
-      if (err.code === '11000') {
+      if (err.code === 11000) {
         return res.status(409).send({ message: err.message });
       }
       return res.status(500).send({ message: `На сервере произошла ошибка: ${err.message}` });
