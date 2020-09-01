@@ -11,8 +11,12 @@ const createUser = (req, res) => {
     password,
   } = req.body;
 
+  if (!password) {
+    return res.status(400).send({ message: 'Пустой пароль!' });
+  }
+
   if (check.isEmpty(password, { ignore_whitespace: true })) {
-    return res.status(400).send({ message: 'Пароль не может состоять из пробелов' });
+    return res.status(400).send({ message: 'Пароль не может состоять из пробелов или быть пустым!' });
   }
 
   if (!check.isLength(password, { min: 6 })) {
