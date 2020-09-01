@@ -38,7 +38,7 @@ const deleteCard = (req, res) => {
         res.status(404).send({ message: 'Card not found' });
       }
       if (err.name === 'Error') {
-        res.status(403).send({ message: err.name });
+        res.status(403).send({ message: err.message });
       }
     });
 };
