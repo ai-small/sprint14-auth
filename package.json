@@ -1,5 +1,5 @@
 {
-  "name": "sprint13-rest-api",
+  "name": "sprint14-auth",
   "version": "0.0.2",
   "description": "training project on backend course",
   "main": "app.js",
@@ -10,11 +10,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ai-small/sprint13-rest-api.git"
+    "url": "https://github.com/ai-small/sprint14-auth.git"
   },
   "author": "ai-small",
   "license": "ISC",
-  "homepage": "https://ai-small.github.io/sprint13-rest-api/",
+  "homepage": "https://ai-small.github.io/sprint14-auth/",
   "devDependencies": {
     "eslint": "^7.5.0",
     "eslint-config-airbnb-base": "^14.2.0",
@@ -22,8 +22,14 @@
     "nodemon": "^2.0.4"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-rate-limit": "^5.1.3",
+    "helmet": "^4.1.0",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.28",
     "validator": "^13.1.1"
   }

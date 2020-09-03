@@ -20,13 +20,27 @@ const createCard = (req, res) => {
 };
 
 const deleteCard = (req, res) => {
-  Card.findByIdAndRemove(req.params.cardId)
-    .then((card) => {
-      if (card) {
-        res.status(200).send({ data: card });
-      } else res.status(404).send({ message: 'Card not found' });
+  Card.findById(req.params.cardId)
+    .populate('owner')
+    .then((cardData) => {
+      if (cardData.owner._id.toString() !== req.user._id) {
+        return Promise.reject(new Error('Нельзя удалить чужую карточку!'));
+      }
+      return cardData;
     })
-    .catch((err) => res.status(500).send({ message: `На сервере произошла ошибка: ${err.message}` }));
+    .then(() => {
+      Card.findByIdAndRemove(req.params.cardId)
+        .then((card) => res.status(200).send({ data: card }))
+        .catch((err) => res.status(500).send({ message: `На сервере произошла ошибка: ${err.message}` }));
+    })
+    .catch((err) => {
+      if (err.message.includes('of null')) {
+        res.status(404).send({ message: 'Card not found' });
+      }
+      if (err.name === 'Error') {
+        res.status(403).send({ message: err.message });
+      }
+    });
 };
 
 const likeCard = (req, res) => {
