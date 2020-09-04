@@ -3,7 +3,10 @@ const Card = require('../models/card');
 const getCards = (req, res) => {
   Card.find({})
     .then((cards) => res.status(200).send({ data: cards }))
-    .catch((err) => res.status(500).send({ message: `На сервере произошла ошибка: ${err.message}` }));
+    .catch((err) => {
+      res.status(500).send({ message: `На сервере произошла ошибка: ${err.message}` });
+      return;
+    });
 };
 
 const createCard = (req, res) => {
