@@ -5,7 +5,6 @@ const getCards = (req, res) => {
     .then((cards) => res.status(200).send({ data: cards }))
     .catch((err) => {
       res.status(500).send({ message: `На сервере произошла ошибка: ${err.message}` });
-      return;
     });
 };
 

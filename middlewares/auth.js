@@ -4,7 +4,7 @@ module.exports = (req, res, next) => {
   const { JWT_SECRET = 'dev-secret' } = process.env;
   const { authorization } = req.headers;
   if (!authorization || !authorization.startsWith('Bearer ')) {
-    res.status(401).send({ message: 'Необходима авторизация' });
+    return res.status(401).send({ message: 'Необходима авторизация' });
   }
   const token = authorization.replace('Bearer ', '');
   let payload;
@@ -14,5 +14,5 @@ module.exports = (req, res, next) => {
     res.status(401).send({ message: 'Необходима авторизация' });
   }
   req.user = payload;
-  next();
+  return next();
 };
